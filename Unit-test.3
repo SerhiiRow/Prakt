@@ -1,0 +1,34 @@
+import unittest
+import tre
+
+class TestCrypto(unittest.TestCase):
+
+    def test_rsa_sign_verify(self):
+        self.assertTrue(tre.rsa_sign_verify("unit test"))
+
+    def test_xor(self):
+        t = "Hello"
+        k = 42
+        self.assertEqual(tre.xor_cipher(tre.xor_cipher(t, k), k), t)
+
+    def test_caesar(self):
+        t = "Hello"
+        self.assertEqual(
+            tre.decrypt_caesar(tre.encrypt_caesar(t, 3), 3),
+            t
+        )
+
+    def test_permutation(self):
+        t = "HELLO"
+        key = [2, 0, 4, 1, 3]
+        self.assertEqual(
+            tre.decrypt_permutation(
+                tre.encrypt_permutation(t, key), key
+            ),
+            t
+        )
+
+if __name__ == "__main__":
+    unittest.main()
+
+
