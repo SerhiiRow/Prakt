@@ -1,0 +1,31 @@
+import unittest
+import dru   
+class TestPasswordStrength(unittest.TestCase):
+
+    def test_weak_popular(self):
+        self.assertEqual(
+            dru.password_status("password"),
+            " Слабкий (поширений пароль)"
+        )
+
+    def test_weak_short(self):
+        self.assertEqual(
+            dru.password_status("123"),
+            " Слабкий (занадто короткий)"
+        )
+
+    def test_medium_password(self):
+        self.assertEqual(
+            dru.password_status("Qwerty123"),
+            " Середній (можна покращити)"
+        )
+
+    def test_strong_password(self):
+        self.assertEqual(
+            dru.password_status("StrongPass!9"),
+            " Надійний пароль"
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
