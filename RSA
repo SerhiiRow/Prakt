@@ -1,0 +1,63 @@
+import rsa
+# перестановка
+def encrypt_permutation(text, key):
+    return "".join(text[i] for i in key)
+
+def decrypt_permutation(cipher, key):
+    result = [""] * len(cipher)
+    for i, k in enumerate(key):
+        result[k] = cipher[i]
+    return "".join(result)
+
+# заміна
+def encrypt_caesar(text, shift):
+    res = ""
+    for c in text:
+        if c.isalpha():
+            base = ord('A') if c.isupper() else ord('a')
+            res += chr((ord(c) - base + shift) % 26 + base)
+        else:
+            res += c
+    return res
+
+def decrypt_caesar(text, shift):
+    return encrypt_caesar(text, -shift)
+#(XOR)
+def xor_cipher(text, key):
+    return "".join(chr(ord(c) ^ key) for c in text)
+
+#RSA та перевірка
+
+def rsa_sign_verify(message: str) -> bool:
+    public_key, private_key = rsa.newkeys(512)
+    data = message.encode()
+    signature = rsa.sign(data, private_key, 'SHA-256')
+    return rsa.verify(data, signature, public_key)
+
+if __name__ == "__main__":
+
+    print("=== перестановка ===")
+    t = "HELLO"
+    key = [2, 0, 4, 1, 3]
+    enc = encrypt_permutation(t, key)
+    dec = decrypt_permutation(enc, key)
+    print(enc, dec)
+
+    print("\n=== заміна ===")
+    enc = encrypt_caesar("Hello", 3)
+    dec = decrypt_caesar(enc, 3)
+    print(enc, dec)
+
+    print("\n=== XOR ===")
+    enc = xor_cipher("Hello", 42)
+    dec = xor_cipher(enc, 42)
+    print(enc, dec)
+
+    print("\n=== RSA  ===")
+    print(rsa_sign_verify("Test message"))
+
+
+
+
+
+
