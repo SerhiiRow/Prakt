@@ -1,0 +1,29 @@
+import unittest
+import one
+class TestPasswordLevels(unittest.TestCase):
+
+    def test_easy_ok(self):
+        self.assertTrue(one.check_password("123456", "easy"))
+
+    def test_easy_fail(self):
+        self.assertFalse(one.check_password("123", "easy"))
+
+    def test_medium_ok(self):
+        self.assertTrue(one.check_password("Abcdef12", "medium"))
+
+    def test_medium_fail(self):
+        self.assertFalse(one.check_password("abcdef12", "medium"))
+
+    def test_hard_ok(self):
+        self.assertTrue(one.check_password("Abc12345!@", "hard"))
+
+    def test_hard_fail(self):
+        self.assertFalse(one.check_password("Abc1234567", "hard"))
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+
+
